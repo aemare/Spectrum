@@ -20,10 +20,12 @@ object ChatListener {
                             content.startsWith("lock") && content.endsWith(password[0]) -> {
                                 if (lock) lock = false else lock = true
                                 user.send("Spectrum has been ${if (lock) "locked" else "unlocked"} for termination.")
+                                return
                             }
                             content.startsWith("kill") && content.endsWith(password[1]) && !lock -> {
                                 user.send("Spectrum has been terminated.")
                                 System.exit(1)
+                                return
                             }
                             else -> {
                                 user.send("Welcome to Spectrum, ${user.fullName}.")
