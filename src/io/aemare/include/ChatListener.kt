@@ -13,7 +13,7 @@ object ChatListener {
             @Throws(SkypeException::class)
             override fun chatMessageReceived(received: ChatMessage) {
                 if (received.type.equals(ChatMessage.Type.SAID)) {
-                    val content: String = received.content
+                    val content: String = received.content.toLowerCase()
                     val user: User = received.sender
                     try {
                         when { //TODO make the script read input and responses from a list, create variation in what Spectrum says.
@@ -27,12 +27,13 @@ object ChatListener {
                                 System.exit(1)
                                 return
                             }
-                            content.toLowerCase().contains("i need help") -> {
+                            content.contains("i need help") -> {
                                 var agent: Friend = Skype.getContactList().getFriend("echo123") //TODO get an available agent from a pool.
                                 user.chat().addUser(agent)
                                 received.chat.setTopic("${Constants.NAME} Support #123456") //TODO generate a legit ID and store this together with the agent and the user their names.
                                 received.chat.send("Hey ${user.fullName}, I have added you in a group with ${agent.fullName}, he will help you further.")
                                 received.chat.leave()
+                                return
                             }
                             else -> {
                                 user.send("Welcome to ${Constants.NAME}, ${user.fullName}.")
