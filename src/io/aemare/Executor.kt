@@ -1,5 +1,8 @@
 package io.aemare
 
+import com.skype.Chat
+import com.skype.Friend
+import com.skype.Group
 import com.skype.Skype
 import io.aemare.include.RequestListener
 import io.aemare.include.CallListener
@@ -8,7 +11,7 @@ import io.aemare.include.ChatListener
 object Executor {
 
     @JvmStatic fun main(args:Array<String>) {
-        println("Spectrum is initializing.")
+        println("${Constants.NAME} is initializing.")
         try {
             Skype.setDaemon(Constants.DAEMON)
             Skype.setDebug(Constants.DEBUG)
@@ -21,11 +24,12 @@ object Executor {
             ChatListener.run()
             CallListener.run()
             RequestListener.run()
-            println("Spectrum has been initialized.")
-        } catch(e:Exception) {
+            println("${Constants.NAME} has been initialized.")
+        } catch (e: Exception) {
             e.printStackTrace()
-            println("Spectrum couldn't be initialized.")
+            println("${Constants.NAME} couldn't be initialized.")
         }
+
     }
 }
 
