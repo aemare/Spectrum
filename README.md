@@ -1,2 +1,2 @@
 # Spectrum
-Spectrum is a company based Skype Bot written in Kotlin.
+A tiny project with a huge scalability.
