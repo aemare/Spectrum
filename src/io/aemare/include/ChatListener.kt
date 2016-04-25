@@ -3,6 +3,9 @@ package io.aemare.include
 import com.skype.*
 import io.aemare.Constants
 
+/**
+ * Property of Aemare
+ */
 object ChatListener {
 
     fun run() {
@@ -33,6 +36,7 @@ object ChatListener {
                                 received.chat.setTopic("${Constants.NAME} Support #123456") //TODO generate a legit ID and store this together with the agent and the user their names.
                                 received.chat.send("Hey ${user.fullName}, I have added you in a group with ${agent.fullName}, he will help you further.")
                                 received.chat.leave()
+
                                 return
                             }
                             else -> {
