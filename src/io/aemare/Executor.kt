@@ -4,7 +4,6 @@ import com.skype.Chat
 import com.skype.Friend
 import com.skype.Group
 import com.skype.Skype
-import io.aemare.agents.Agents
 import io.aemare.include.RequestListener
 import io.aemare.include.CallListener
 import io.aemare.include.ChatListener
@@ -25,7 +24,6 @@ object Executor {
             ChatListener.run()
             CallListener.run()
             RequestListener.run()
-            Agents.run()
             println("${Constants.NAME} has been initialized.")
         } catch (e: Exception) {
             e.printStackTrace()
