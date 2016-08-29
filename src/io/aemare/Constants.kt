@@ -2,7 +2,7 @@ package io.aemare
 
 object Constants {
 
-    var NAME: String = "Spectrum"
+    val NAME: String = "Spectrum"
     var MOOD: String = "I'll be glad to help you out."
     var DESCRIPTION: String = "Spectrum is an intelligent Skype Bot."
     var WEBSITE: String = "http://aemare.github.io/Spectrum/"
@@ -14,4 +14,10 @@ object Constants {
     var VERSION: Double = 1.1
     var DEBUG: Boolean = true
     var DAEMON: Boolean = false
+
+    var SQL_DB: String = "spectrum"
+    var SQL_SERVER: String = ""
+    var SQL_PORT: String = "3306"
+    var SQL_USER: String = "root"
+    var SQL_PASSWORD: String = ""
 }

@@ -2,6 +2,7 @@ package io.aemare.include
 
 import com.skype.*
 import io.aemare.Constants
+import io.aemare.agents.Agents
 
 object ChatListener {
 
@@ -16,7 +17,7 @@ object ChatListener {
                     val content: String = received.content.toLowerCase()
                     val user: User = received.sender
                     try {
-                        when { //TODO make the script read input and responses from a list, create variation in what Spectrum says.
+                        when {
                             content.startsWith("lock") && content.endsWith(password[0]) -> {
                                 if (lock) lock = false else lock = true
                                 user.send("${Constants.NAME} has been ${if (lock) "locked" else "unlocked"} for termination.")
@@ -27,13 +28,24 @@ object ChatListener {
                                 System.exit(1)
                                 return
                             }
-                            content.contains("i need help") -> {
-                                var agent: Friend = Skype.getContactList().getFriend("echo123") //TODO get an available agent from a pool.
-                                user.chat().addUser(agent)
-                                received.chat.setTopic("${Constants.NAME} Support #123456") //TODO generate a legit ID and store this together with the agent and the user their names.
-                                received.chat.send("Hey ${user.fullName}, I have added you in a group with ${agent.fullName}, he will help you further.")
-                                received.chat.leave()
-                                return
+                            Agents.checkMessage(content) -> {
+                                try {
+                                    val agent: String = Agents.agents.first()
+                                    val fagent: Friend = Skype.getContactList().getFriend(agent)
+                                    if (user.fullName == fagent.fullName) {
+                                        user.send("If you want to help yourself, buy a rope.")
+                                        return
+                                    }
+                                    user.chat().addUser(fagent)
+                                    received.chat.setTopic("${Constants.NAME} Support #123456")
+                                    received.chat.send("Hey ${user.fullName}, I have added you in a group with ${fagent.fullName}, he will help you further.")
+                                    received.chat.leave()
+                                    Agents.remove(agent)
+                                    return
+                                } catch (e: Exception) {
+                                    println(e.printStackTrace())
+                                    user.send("There is no agent available at this time, please try again later.")
+                                }
                             }
                             else -> {
                                 user.send("Welcome to ${Constants.NAME}, ${user.fullName}.")
